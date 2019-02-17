@@ -1,0 +1,16 @@
+**/.idea/
+**/*.class
+**/target/
+**/*.iml
+**/.classpath
+**/.metadata
+**/bin/
+**/tmp/
+**/*.tmp
+**/local.properties
+**/.settings/
+**/.loadpath
+**/.recommenders
+**/*.project
+**/logs/
+
