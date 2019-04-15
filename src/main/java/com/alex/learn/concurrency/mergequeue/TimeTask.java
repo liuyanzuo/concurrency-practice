@@ -1,7 +1,9 @@
 package com.alex.learn.concurrency.mergequeue;
 
-public abstract class TimeTask<E extends TimeTask<E>> implements Comparable<E>{
-    
+import java.util.Objects;
+
+public abstract class TimeTask<E extends TimeTask<E>> implements Comparable<E> {
+
     /**
      * 任务ID
      */
@@ -11,13 +13,17 @@ public abstract class TimeTask<E extends TimeTask<E>> implements Comparable<E>{
      */
     private long exTime;
 
-    public TimeTask(String key, long exTime){
+    public TimeTask(String key, long exTime) {
         this.key = key;
         this.exTime = exTime;
     }
 
-    public long getExTime(){
+    public long getExTime() {
         return this.exTime;
+    }
+
+    public String getKey() {
+        return key;
     }
 
     /**
@@ -30,4 +36,24 @@ public abstract class TimeTask<E extends TimeTask<E>> implements Comparable<E>{
      */
     protected abstract void filedFrom(E e);
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TimeTask<?> timeTask = (TimeTask<?>) o;
+
+        return Objects.equals(key, timeTask.key);
+    }
+
+    @Override
+    public int hashCode() {
+        return key != null ? key.hashCode() : 0;
+    }
+
+    @Override
+    public int compareTo(E o) {
+        //compareTo用于优先级队列中构造最小堆
+        return Long.compare(getExTime(), o.getExTime());
+    }
 }
